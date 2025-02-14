@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>San Valentín</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+        }
+
+        .fondo {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            display: none;
+            animation: estrellas 50s linear infinite;
+        }
+
+        @keyframes estrellas {
+            from { background-position: 0 0; }
+            to { background-position: 1000px 1000px; }
+        }
+
+        .inicio {
+            text-align: center;
+        }
+
+        .sobre {
+            width: 200px;
+            cursor: pointer;
+            animation: latir 1s infinite ease-in-out;
+        }
+
+        @keyframes latir {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+        }
+
+        .mensaje, .mensaje-si, .error {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 24px;
+            color: white;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            animation: aparecer 1s ease-in-out;
+        }
+
+        @keyframes aparecer {
+            from { opacity: 0; transform: translate(-50%, -55%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        .botones {
+            margin-top: 20px;
+        }
+
+        .boton {
+            font-size: 20px;
+            margin: 10px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .si {
+            background: green;
+            color: white;
+        }
+
+        .no {
+            background: red;
+            color: white;
+        }
+
+        .gatito {
+            display: none;
+            width: 150px;
+            position: absolute;
+            animation: moverse 5s infinite linear alternate;
+        }
+
+        @keyframes moverse {
+            0% { top: 5%; left: 5%; }
+            25% { top: 80%; left: 15%; }
+            50% { top: 50%; left: 85%; }
+            75% { top: 30%; left: 40%; }
+            100% { top: 5%; left: 5%; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Primera pantalla con el sobre -->
+    <div class="inicio" id="inicio">
+        <img src="sobre.png" alt="Sobre de carta" class="sobre" onclick="mostrarMensaje()">
+    </div>
+
+    <!-- Mensaje con botones -->
+    <div class="mensaje" id="mensaje">
+        <p>¿Te gustaría ser mi San Valentín? ❤️</p>
+        <div class="botones">
+            <button class="boton si" onclick="aceptar()">Sí</button>
+            <button class="boton no" onclick="errorMensaje()">No</button>
+        </div>
+    </div>
+
+    <!-- Mensaje de error -->
+    <div class="error" id="error">
+        <p>⚠️ Error en el código, volver a intentar</p>
+    </div>
+
+    <!-- Mensaje "Gatito dijo Sí!!" -->
+    <div class="mensaje-si" id="mensaje-si">
+        <p>🐱 ¡Gatito dijo Sí!! 💖</p>
+    </div>
+
+    <!-- Fondo de estrellas y gatito -->
+    <div class="fondo" id="fondo"></div>
+    <img src="gato-bailando.gif" alt="Gatito bailando" class="gatito" id="gatito">
+    <audio id="cancion" src="Daniela Spalla, Camilo - Lejos de la Ciudad (Lyric Video) (mp3cut.net).mp3"></audio>
+
+    <script>
+        function mostrarMensaje() {
+            document.getElementById('inicio').style.display = 'none';
+            document.getElementById('mensaje').style.display = 'block';
+        }
+
+        function aceptar() {
+            document.getElementById('mensaje').style.display = 'none';
+            document.getElementById('mensaje-si').style.display = 'block';
+            document.getElementById('gatito').style.display = 'block';
+            document.getElementById('fondo').style.display = 'block';
+
+            // Reproducir la canción de inmediato
+            document.getElementById('cancion').play();
+        }
+
+        function errorMensaje() {
+            let errorBox = document.getElementById('error');
+            errorBox.style.display = 'block';
+            setTimeout(() => { errorBox.style.display = 'none'; }, 2000);
+        }
+    </script>
+
+</body>
+</html>
+
